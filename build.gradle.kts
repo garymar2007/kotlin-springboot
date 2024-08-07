@@ -34,6 +34,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+
+	implementation("org.jetbrains:markdown:0.2.2")
 }
 
 tasks.withType<Test> {

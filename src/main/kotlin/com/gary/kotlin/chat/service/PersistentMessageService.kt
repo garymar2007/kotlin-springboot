@@ -2,6 +2,9 @@ package com.gary.kotlin.chat.service
 
 import com.gary.kotlin.chat.dto.MessageVM
 import com.gary.kotlin.chat.dto.UserVM
+import com.gary.kotlin.chat.extension.asDomainObject
+import com.gary.kotlin.chat.extension.asViewModel
+import com.gary.kotlin.chat.extension.mapToViewModel
 import com.gary.kotlin.chat.repository.ContentType
 import com.gary.kotlin.chat.repository.Message
 import com.gary.kotlin.chat.repository.MessageRepository
@@ -9,28 +12,17 @@ import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
 import java.net.URL
 
+//@Primary to give higher preference to a bean when there are multiple beans of the same type.
 @Service
 @Primary
 class PersistentMessageService(val messageRepository : MessageRepository) : MessageService {
     override fun latest(): List<MessageVM> =
-        messageRepository.findLatest()
-            .map { with(it){
-                MessageVM(content, UserVM(username, URL(userAvatarImageLink)), sent, id)
-            }
-    }
+        messageRepository.findLatest().mapToViewModel()
 
     override fun after(lastMessageId: String): List<MessageVM> =
-        messageRepository.findLatest(lastMessageId)
-            .map { with(it){
-                MessageVM(content, UserVM(username, URL(userAvatarImageLink)), sent, id)
-            }
-    }
+        messageRepository.findLatest(lastMessageId).mapToViewModel()
 
     override fun post(message: MessageVM) {
-        messageRepository.save(
-            with(message) {
-                Message(content, ContentType.PLAIN, sent, user.name, user.avatarImageLink.toString())
-            }
-        )
+        messageRepository.save(message.asDomainObject())
     }
 }
