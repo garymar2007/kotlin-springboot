@@ -4,9 +4,9 @@ import com.gary.kotlin.chat.dto.MessageVM
 
 interface MessageService {
 
-    fun latest(): List<MessageVM>
+    suspend fun latest(): List<MessageVM>
 
-    fun after(messageId: String): List<MessageVM>
+    suspend fun after(messageId: String): List<MessageVM>
 
-    fun post(message: MessageVM)
+    suspend fun post(message: MessageVM)
 }

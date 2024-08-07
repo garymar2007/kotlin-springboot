@@ -1,7 +1,7 @@
 package com.gary.kotlin.chat.repository
 
-import org.springframework.data.repository.CrudRepository
-import org.springframework.data.jdbc.repository.query.Query
+import org.springframework.data.r2dbc.repository.Query
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.data.repository.query.Param
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param
  * methods with custom queries for retrieving the latest messages and for retrieving messages
  * associated with specific message IDs.
  */
-interface MessageRepository : CrudRepository<Message, String> {
+interface MessageRepository : CoroutineCrudRepository<Message, String> {
     // language=SQL
     // multiline String used to express the SQL query in the readable format.
     @Query("""
@@ -19,7 +19,7 @@ interface MessageRepository : CrudRepository<Message, String> {
             LIMIT 10
         ) ORDER BY "SENT"
     """)
-    fun findLatest(): List<Message>
+    suspend fun findLatest(): List<Message>
 
     // language=SQL
     @Query("""
@@ -29,5 +29,5 @@ interface MessageRepository : CrudRepository<Message, String> {
             ORDER BY "SENT" DESC
         ) ORDER BY "SENT"
     """)
-    fun findLatest(@Param("id") id: String): List<Message>
+    suspend fun findLatest(@Param("id") id: String): List<Message>
 }
