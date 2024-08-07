@@ -1,5 +1,7 @@
-package com.example.kotlin.chat.service
+package com.gary.kotlin.chat.service
 
+import com.gary.kotlin.chat.dto.MessageVM
+import com.gary.kotlin.chat.dto.UserVM
 import com.github.javafaker.Faker
 import org.springframework.stereotype.Service
 import java.net.URL
@@ -15,6 +17,7 @@ class FakeMessageService : MessageService {
         "Yoda"         to UserVM("Yoda", URL("https://news.toyark.com/wp-content/uploads/sites/4/2019/03/SH-Figuarts-Yoda-001.jpg"))
     )
 
+    //functional type which is used in a form of lambda expression where takes no arguments and returns a string.
     val usersQuotes: Map<String, () -> String> = mapOf(
         "Shakespeare"  to { Faker.instance().shakespeare().asYouLikeItQuote() },
         "RickAndMorty" to { Faker.instance().rickAndMorty().quote() },
@@ -24,6 +27,7 @@ class FakeMessageService : MessageService {
     override fun latest(): List<MessageVM> {
         val count = Random.nextInt(1, 15)
         return (0..count).map {
+            // use the extension method random() on the values of the map to get a random user
             val user = users.values.random()
             val userQuote = usersQuotes.getValue(user.name).invoke()
 

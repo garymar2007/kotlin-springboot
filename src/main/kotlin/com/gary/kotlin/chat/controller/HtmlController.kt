@@ -1,7 +1,7 @@
-package com.example.kotlin.chat.controller
+package com.gary.kotlin.chat.controller
 
-import com.example.kotlin.chat.service.MessageService
-import com.example.kotlin.chat.service.MessageVM
+import com.gary.kotlin.chat.service.MessageService
+import com.gary.kotlin.chat.dto.MessageVM
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
@@ -14,8 +14,10 @@ class HtmlController(val messageService: MessageService) {
     fun index(model: Model): String {
         val messages: List<MessageVM> = messageService.latest()
 
+        //overloading the set operator to set the model attributes
         model["messages"] = messages
         model["lastMessageId"] = messages.lastOrNull()?.id ?: ""
+        //Null safety: ?. - safe call and ?: elvis operator
 
         return "chat"
     }

@@ -1,4 +1,6 @@
-package com.example.kotlin.chat.service
+package com.gary.kotlin.chat.service
+
+import com.gary.kotlin.chat.dto.MessageVM
 
 interface MessageService {
 

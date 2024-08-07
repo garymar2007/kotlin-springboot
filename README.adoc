@@ -33,7 +33,7 @@ Clone the repository from IntelliJ IDEA by choosing `File | New | Project from V
 
 image::./images/download-from-vcs.png[]
 
-Specify the project path: http://github.com/kotlin-hands-on/kotlin-spring-chat.
+Specify the project path: http://github.com/garymar2007/kotlin-springboot.
 
 image::./images/download-from-vcs-github.png[]
 
@@ -41,7 +41,7 @@ Once you clone the project, IntelliJ IDEA will import and open it automatically.
 Alternatively, you can clone the project with the command line:
 
 [source,bash]
-$ git clone https://github.com/kotlin-hands-on/kotlin-spring-chat.
+$ git clone https://github.com/garymar2007/kotlin-springboot.
 
 === Solution branches
 
@@ -128,6 +128,7 @@ class HtmlController(val messageService: MessageService) {
    fun index(model: Model): String {
        val messages = messageService.latest()
 
+       //overloading the set operator
        model["messages"] = messages
        model["lastMessageId"] = messages.lastOrNull()?.id ?: ""
        return "chat"

@@ -1,13 +1,13 @@
-package com.example.kotlin.chat.controller
+package com.gary.kotlin.chat.controller
 
-import com.example.kotlin.chat.service.MessageService
-import com.example.kotlin.chat.service.MessageVM
+import com.gary.kotlin.chat.service.MessageService
+import com.gary.kotlin.chat.dto.MessageVM
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/messages")
-class MessageResource(val messageService: MessageService) {
+class MessageController(val messageService: MessageService) {
 
     @GetMapping
     fun latest(@RequestParam(value = "lastMessageId", defaultValue = "") lastMessageId: String): ResponseEntity<List<MessageVM>> {
@@ -17,6 +17,7 @@ class MessageResource(val messageService: MessageService) {
             messageService.latest()
         }
 
+        //Scope function: with whose purpose is to execute a block of code within the context of an object.
         return if (messages.isEmpty()) {
             with(ResponseEntity.noContent()) {
                 header("lastMessageId", lastMessageId)

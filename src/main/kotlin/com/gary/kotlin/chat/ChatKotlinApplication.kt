@@ -1,4 +1,4 @@
-package com.example.kotlin.chat
+package com.gary.kotlin.chat
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
