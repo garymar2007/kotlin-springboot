@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.4.0"
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
-	kotlin("jvm") version "1.4.10"
-	kotlin("plugin.spring") version "1.4.10"
+	kotlin("jvm") version "1.4.30"
+	kotlin("plugin.spring") version "1.4.30"
 }
 
 group = "com.gary.kotlin"
@@ -31,10 +31,6 @@ dependencies {
 	//implementation("org.springframework.boot:spring-boot-starter-web")
 	runtimeOnly("com.h2database:h2")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test") {
-		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-	}
-
 	implementation("org.jetbrains:markdown:0.2.2")
 
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
@@ -44,6 +40,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("io.r2dbc:r2dbc-h2")
+
+	implementation("org.springframework.boot:spring-boot-starter-rsocket")
+
+	testImplementation("app.cash.turbine:turbine:0.4.1")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+	}
 }
 
 tasks.withType<Test> {
