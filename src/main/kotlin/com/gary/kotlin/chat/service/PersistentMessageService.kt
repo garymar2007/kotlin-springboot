@@ -5,8 +5,12 @@ import com.gary.kotlin.chat.dto.UserVM
 import com.gary.kotlin.chat.repository.ContentType
 import com.gary.kotlin.chat.repository.Message
 import com.gary.kotlin.chat.repository.MessageRepository
+import org.springframework.context.annotation.Primary
+import org.springframework.stereotype.Service
 import java.net.URL
 
+@Service
+@Primary
 class PersistentMessageService(val messageRepository : MessageRepository) : MessageService {
     override fun latest(): List<MessageVM> =
         messageRepository.findLatest()
